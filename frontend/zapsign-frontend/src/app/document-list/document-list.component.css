@@ -1,0 +1,93 @@
+.container {
+  padding: 20px;
+}
+
+.actions {
+  margin-bottom: 20px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.document-list {
+  margin-top: 20px;
+}
+
+.document-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+}
+
+.document-item h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.document-details {
+  display: flex;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.document-details .status {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.document-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.document-actions a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.document-actions a:hover {
+  text-decoration: underline;
+}
+
+.document-actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #007bff;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.view-btn {
+  background-color: #17a2b8;
+}
+
+.error-message {
+  color: #dc3545;
+  padding: 10px;
+  background-color: #f8d7da;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.no-docs {
+  font-style: italic;
+  color: #666;
+  margin: 20px 0;
+}

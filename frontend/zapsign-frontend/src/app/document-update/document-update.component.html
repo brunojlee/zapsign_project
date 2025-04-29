@@ -1,0 +1,68 @@
+<div class="container">
+  <h2>Atualizar Documento</h2>
+  <div *ngIf="loading">Carregando detalhes do documento...</div>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button type="button" (click)="navigateToDocuments()">Return to Documents List</button>
+  </div>
+  
+  <form (ngSubmit)="updateDocument()" *ngIf="!loading && !error">
+    <!-- Display token and open_id as read-only fields -->
+    <div *ngIf="document.token || document.open_id" class="readonly-info">
+      <div *ngIf="document.token" class="info-item">
+        <label>Token:</label>
+        <span>{{ document.token }}</span>
+      </div>
+      <div *ngIf="document.open_id" class="info-item">
+        <label>Open ID:</label>
+        <span>{{ document.open_id }}</span>
+      </div>
+      <div class="info-item">
+        <label>Status:</label>
+        <span>{{ document.status }}</span>
+      </div>
+    </div>
+    
+    <div>
+      <label>Nome do Documento:</label>
+      <input type="text" [(ngModel)]="document.name" name="name" required/>
+    </div>
+    
+    <!-- Only show URL field if document is not signed -->
+    <div *ngIf="document.status !== 'signed'">
+      <label>URL do PDF:</label>
+      <input type="text" [(ngModel)]="document.url_pdf" name="url_pdf" required placeholder="https://example.com/documento.pdf"/>
+    </div>
+    
+    <div class="signers-section" *ngIf="document.signers && document.signers.length > 0">
+      <h3>Assinante</h3>
+      <div>
+        <label>Nome do Assinante:</label>
+        <input type="text" [(ngModel)]="document.signers[0].name" name="signer_name" required/>
+      </div>
+      <div>
+        <label>Email do Assinante:</label>
+        <input type="email" [(ngModel)]="document.signers[0].email" name="signer_email" required/>
+      </div>
+    </div>
+    
+    <div>
+      <label>Status:</label>
+      <select [(ngModel)]="document.status" name="status">
+        <option value="pending">Pendente</option>
+        <option value="processing">Processando</option>
+        <option value="completed">Concluído</option>
+        <option value="signed">Assinado</option>
+        <option value="cancelled">Cancelado</option>
+      </select>
+    </div>
+    
+    <div>
+      <label>Criado Por:</label>
+      <input type="text" [(ngModel)]="document.created_by" name="created_by"/>
+    </div>
+    
+    <button type="submit">Atualizar Documento</button>
+    <button type="button" (click)="navigateToDocuments()">Cancelar</button>
+  </form>
+</div>

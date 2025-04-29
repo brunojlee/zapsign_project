@@ -1,0 +1,90 @@
+<div class="container">
+  <h2>Detalhes do Documento</h2>
+  <div *ngIf="loading" class="loading">Carregando detalhes do documento...</div>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button type="button" (click)="navigateToDocuments()">Voltar para Lista de Documentos</button>
+  </div>
+  
+  <div *ngIf="!loading && !error" class="document-details-container">
+    <div class="document-header">
+      <h3>{{ document.name }}</h3>
+      <span class="document-status status-{{ document.status }}">{{ document.status }}</span>
+    </div>
+    
+    <div class="details-section">
+      <h4>Informações Básicas</h4>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>ID:</label>
+          <span>{{ document.open_id || 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Token:</label>
+          <span>{{ document.token || 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Criado Em:</label>
+          <span>{{ document.created_at ? (document.created_at | date:'dd/MM/yyyy HH:mm') : 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Última Atualização:</label>
+          <span>{{ document.last_update_at ? (document.last_update_at | date:'dd/MM/yyyy HH:mm') : 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>Criado Por:</label>
+          <span>{{ document.created_by || 'N/A' }}</span>
+        </div>
+        <div class="info-item">
+          <label>ID Externo:</label>
+          <span>{{ document.external_id || 'N/A' }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="details-section" *ngIf="document.signers && document.signers.length > 0">
+      <h4>Assinantes</h4>
+      <div class="signer-list">
+        <div class="signer-item" *ngFor="let signer of document.signers; let i = index">
+          <div class="signer-header">
+            <h5>Assinante {{ i + 1 }}</h5>
+            <span class="signer-status status-{{ signer.status }}">{{ signer.status }}</span>
+          </div>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Nome:</label>
+              <span>{{ signer.name }}</span>
+            </div>
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ signer.email }}</span>
+            </div>
+            <div class="info-item">
+              <label>Token:</label>
+              <span>{{ signer.token || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>ID Externo:</label>
+              <span>{{ signer.external_id || 'N/A' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="details-section" *ngIf="document.signed_file">
+      <h4>Arquivo Assinado</h4>
+      <div class="document-file">
+        <a [href]="document.signed_file" target="_blank" class="file-link">
+          <span class="file-icon">📄</span>
+          <span class="file-name">Ver PDF Assinado</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="actions-row">
+      <button type="button" class="btn-primary" (click)="editDocument()">Editar</button>
+      <button type="button" class="btn-secondary" (click)="navigateToDocuments()">Voltar</button>
+    </div>
+  </div>
+</div>

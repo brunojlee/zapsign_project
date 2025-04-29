@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Lista de Documentos</h2>
+  <div class="actions">
+    <button (click)="navigateToCreate()">Criar Novo Documento</button>
+  </div>
+  
+  <div *ngIf="loading">Carregando documentos...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+  <div *ngIf="documents.length === 0 && !loading" class="no-docs">
+    Nenhum documento encontrado.
+  </div>
+  
+  <div class="document-list" *ngIf="documents.length > 0">
+    <div class="document-item" *ngFor="let doc of documents">
+      <h3>{{ doc.name }}</h3>
+      <div class="document-details">
+        <span class="status">Status: {{ doc.status }}</span>
+        <span class="created">Criado em: {{ doc.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="document-actions">
+        <button (click)="viewDocument(doc)" class="view-btn">Ver Detalhes</button>
+        <button (click)="editDocument(doc)" class="edit-btn">Editar</button>
+        <button (click)="deleteDocument(doc.token)" class="delete-btn">Excluir</button>
+        <a *ngIf="doc.signed_file" [href]="doc.signed_file" target="_blank">Ver PDF Assinado</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>Criar Documento</h2>
+  <div *ngIf="loading">Carregando...</div>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+  
+  <form (ngSubmit)="createDocument()" *ngIf="!loading">
+    <div>
+      <label>Nome do Documento:</label>
+      <input type="text" [(ngModel)]="document.name" name="name" required/>
+    </div>
+    
+    <div>
+      <label>URL do PDF:</label>
+      <input type="text" [(ngModel)]="document.url_pdf" name="url_pdf" required placeholder="https://example.com/documento.pdf"/>
+    </div>
+    
+    <div class="signers-section">
+      <h3>Assinante</h3>
+      <div>
+        <label>Nome do Assinante:</label>
+        <input type="text" [(ngModel)]="document.signers[0].name" name="signer_name" required/>
+      </div>
+      <div>
+        <label>Email do Assinante:</label>
+        <input type="email" [(ngModel)]="document.signers[0].email" name="signer_email" required/>
+      </div>
+    </div>
+    
+    <div>
+      <label>Status:</label>
+      <select [(ngModel)]="document.status" name="status">
+        <option value="pending">Pendente</option>
+        <option value="processing">Processando</option>
+        <option value="completed">Concluído</option>
+        <option value="cancelled">Cancelado</option>
+      </select>
+    </div>
+    
+    <div>
+      <label>Criado Por:</label>
+      <input type="text" [(ngModel)]="document.created_by" name="created_by"/>
+    </div>
+    
+    <button type="submit">Criar Documento</button>
+    <button type="button" (click)="navigateToDocuments()">Cancelar</button>
+  </form>
+</div>
